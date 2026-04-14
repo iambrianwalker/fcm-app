@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
                       errorBuilder: (context, error, stackTrace) {
                         return const Icon(Icons.broken_image, size: 100);
                       },
-                    ),
+                    )
                   ),
 
                   const SizedBox(height: 20),
