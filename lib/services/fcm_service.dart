@@ -1,4 +1,5 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 
 class FCMService {
   final FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -23,7 +24,7 @@ class FCMService {
   Future<String?> getToken() {
     return messaging.getToken();
   }
- Future<void> setupPermissionsAndToken() async {
+  Future<void> setupPermissionsAndToken() async {
     final settings = await FirebaseMessaging.instance.requestPermission(
       alert: true,
       badge: true,
@@ -32,4 +33,5 @@ class FCMService {
 
     final token = await FirebaseMessaging.instance.getToken();
     debugPrint('FCM token: $token');
+  }
 }
