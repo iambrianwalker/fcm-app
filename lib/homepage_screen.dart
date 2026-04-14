@@ -19,6 +19,9 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+
+    _fcmService.setupPermissionsAndToken();
+
     _fcmService.initialize(onData: (message) {
       setState(() {
         statusText = message.notification?.title ?? 'Payload received';
@@ -27,58 +30,16 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade100,
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Card(
-            elevation: 8,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-
-                  // IMAGE
-                  AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 300),
-                    child: Image.asset(
-                      imagePath,
-                      key: ValueKey(imagePath),
-                      height: 150,
-                      errorBuilder: (context, error, stackTrace) {
-                        return const Icon(Icons.broken_image, size: 100);
-                      },
-                    )
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  // TEXT
-                  AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 300),
-                    child: Text(
-                      statusText,
-                      key: ValueKey(statusText),
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+      appBar: AppBar(title: const Text("FCM Demo")),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(statusText),
+          Image.asset(imagePath),
+        ],
       ),
     );
   }

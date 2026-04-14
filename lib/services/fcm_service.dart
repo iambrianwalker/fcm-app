@@ -23,4 +23,13 @@ class FCMService {
   Future<String?> getToken() {
     return messaging.getToken();
   }
+ Future<void> setupPermissionsAndToken() async {
+    final settings = await FirebaseMessaging.instance.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+
+    final token = await FirebaseMessaging.instance.getToken();
+    debugPrint('FCM token: $token');
 }
